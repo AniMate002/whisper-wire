@@ -27,7 +27,7 @@ export const signup = async (req, res) => {
         // await User.create({fullName, username, password: hashedPassword, gender, profilePic: gender === "male" ? MALE_PIC : FEMALE_PIC})
         const newUser = User({fullName, username, password: hashedPassword, gender, profilePic: gender === "male" ? MALE_PIC : FEMALE_PIC})
         if(newUser){
-            generateTokenAndSetCookies(newUser, res)
+            generateTokenAndSetCookies(newUser._id, res)
             await newUser.save()
             res.status(201).json({id: newUser._id, fullName, username})
 
@@ -51,7 +51,7 @@ export const login = async (req, res) => {
         if(!user || !isCorrectPassword){
             return res.status(400).json({error: "Invalid username or password."})
         }
-        generateTokenAndSetCookies(user, res)
+        generateTokenAndSetCookies(user._id, res)
 
         res.status(200).json({
             _id: user._id,

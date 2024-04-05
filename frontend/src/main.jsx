@@ -9,6 +9,7 @@ import {
 import SignUpPage from './pages/SignUpPage.jsx';
 import LogInPage from './pages/LogInPage.jsx';
 import HomePage from './pages/HomePage.jsx';
+import { AuthConextProvider } from './context/AuthContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,5 +27,7 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
+  <AuthConextProvider>
+    <RouterProvider router={router} />
+  </AuthConextProvider>
 )

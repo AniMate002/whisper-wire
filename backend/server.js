@@ -29,9 +29,9 @@ app.use("/api/users", userRoutes)
 // allows express server communicate with static html files
 // that will appear in dist folder after building front-end project
 app.use(express.static(path.join(__dirname, "/frontend/dist")))
-// server pages from server
+// 
 app.get("*", (req, res) => [
-    res.send(path.join(__dirname, "frontend", "dist", "index.html"))
+    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"))
 ])
 
 server.listen(PORT, () => {

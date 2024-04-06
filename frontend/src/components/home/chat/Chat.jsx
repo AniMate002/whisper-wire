@@ -4,11 +4,13 @@ import ChatMessages from "./ChatMessages";
 import { useGetMessages } from "../../../hooks/useGetMessages";
 import useConversation from "../../../zustand/useConversation";
 import { useEffect } from "react";
+import { useListenMessages } from "../../../hooks/useListenMessages";
 
 
 
 
 const Chat = () => {
+    useListenMessages()
     const { messages, isLoading } = useGetMessages()
     const {setSelectedConversation} = useConversation()
     useEffect(() => {

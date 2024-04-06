@@ -1,10 +1,15 @@
+import { useSocketContext } from "../../../context/SocketContext";
 import useConversation from "../../../zustand/useConversation";
 
 
 
 const SideBarSingleConversation = ({conversation}) => {
     const { setSelectedConversation, selectedConversation} = useConversation()
+    const { onlineUsers } = useSocketContext()
     const isSelected = selectedConversation?._id === conversation._id;
+    const isOnline = onlineUsers.includes(conversation._id)
+    console.log(onlineUsers)
+
     return (
         <div>
             <div className={`flex items-center justify-between w-[95%] mx-auto px-5 py-2 cursor-pointer rounded-md
@@ -18,7 +23,7 @@ const SideBarSingleConversation = ({conversation}) => {
             onClick={() => setSelectedConversation(conversation)} 
             >
                 <div className="flex items-center gap-4 font-semibold text-slate-300">
-                    <div className="avatar online">
+                    <div className={`avatar ${isOnline ? "online" : ""}`}>
                         <div className="w-14 rounded-full">
                             <img src={conversation.profilePic} />
                         </div>

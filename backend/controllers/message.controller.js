@@ -1,6 +1,6 @@
 import { Conversation } from "../models/Conversation.js";
 import { Message } from "../models/Message.js";
-
+import { io, getReceiverSocketId } from "../socket/socket.js"
 
 
 export const sendMessage = async (req, res) => {
@@ -28,6 +28,13 @@ export const sendMessage = async (req, res) => {
 
         conversation.messages.push(newMessage)
         await Promise.all([newMessage.save(), conversation.save()])
+
+        // sending a new message to a user with socket.io
+        const receiverSocketId = getReceiverSocketId(receiverId)
+        if(receiverSocketId){
+            // io.to(socket.id).emit() - sends data to a specific user
+            io.to(receiverSocketId).emit("newMessage", newMessage)
+        }
 
         res.status(201).json(newMessage)
     }catch(e){

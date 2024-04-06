@@ -30,9 +30,9 @@ app.use("/api/users", userRoutes)
 // that will appear in dist folder after building front-end project
 app.use(express.static(path.join(__dirname, "/frontend/dist")))
 // 
-app.get("*", (req, res) => [
+app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"))
-])
+})
 
 server.listen(PORT, () => {
     console.log("Listening on port: " + PORT)
